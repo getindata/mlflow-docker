@@ -1,6 +1,6 @@
 FROM python:3.8-slim
 
-ARG MLFLOW_VERSION=">=1.0"
+ARG MLFLOW_VERSION="1.*"
 
 RUN mkdir /mlflow
 
