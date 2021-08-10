@@ -29,11 +29,11 @@ jobs:
         with:
           creds: ${{ secrets.PUBLIC_GCR_DEPLOY_SA_KEY }}
           src: mlflow:latest
-          dst: gcr.io/getindata-images-public/mlflow-gcp:${{ env.RELEASE_VERSION }}
+          dst: gcr.io/getindata-images-public/mlflow-gcp-aws:${{ env.RELEASE_VERSION }}
 
       - name: Publish Image (latest)
         uses: mattes/gce-docker-push-action@v1
         with:
           creds: ${{ secrets.PUBLIC_GCR_DEPLOY_SA_KEY }}
           src: mlflow:latest
-          dst: gcr.io/getindata-images-public/mlflow-gcp:latest
+          dst: gcr.io/getindata-images-public/mlflow-gcp-aws:latest
