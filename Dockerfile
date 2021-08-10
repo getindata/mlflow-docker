@@ -12,8 +12,8 @@ ENV LANG=C.UTF-8
 RUN echo "export LC_ALL=$LC_ALL" >> /etc/profile.d/locale.sh
 RUN echo "export LANG=$LANG" >> /etc/profile.d/locale.sh
 
-RUN pip install --no-cache-dir --ignore-installed google-cloud-storage && \
-    pip install --no-cache-dir psycopg2-binary mlflow==$MLFLOW_VERSION pyarrow
+RUN pip install --no-cache-dir --ignore-installed google-cloud-storage boto3 && \
+    pip install --no-cache-dir psycopg2-binary PyMySQL mlflow==$MLFLOW_VERSION pyarrow
 
 EXPOSE 8080
 
