@@ -25,4 +25,4 @@ jobs:
       - name: Container image scan
         uses: Azure/container-scan@v0.1
         with:
-          image-name: mlflow:latest --load .
+          image-name: mlflow:latest
