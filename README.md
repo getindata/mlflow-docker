@@ -1,4 +1,6 @@
-# MLflow docker image with PostgreSQL/MySQL, AWS and Google Cloud support
+# MLflow docker image 
+
+Included PostgreSQL/MySQL, AWS and GCP support
 
 
 Images can be found in `gcr.io/getindata-images-public/mlflow:*` public repository.
