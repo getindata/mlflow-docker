@@ -18,11 +18,20 @@ jobs:
         with:
           install: true
 
-      - name: Build
+      - name: Build (standard)
         run: |
-          docker build --tag mlflow:latest --load .
+          docker build --tag mlflow:latest --load ./standard
 
-      - name: Container image scan
+      - name: Build (appengine)
+        run: |
+          docker build --tag mlflow:latest-appengine --load ./appengine
+
+      - name: Container image scan (standard)
         uses: Azure/container-scan@v0.1
         with:
           image-name: mlflow:latest
+
+      - name: Container image scan (appengine)
+        uses: Azure/container-scan@v0.1
+        with:
+          image-name: mlflow:latest-appengine

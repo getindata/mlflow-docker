@@ -20,20 +20,38 @@ jobs:
       - name: Set env
         run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
 
-      - name: Build
+      - name: Build image (standard)
         run: |
-          docker build --tag mlflow:latest --build-arg MLFLOW_VERSION=$RELEASE_VERSION  --load .
+          docker build --tag mlflow:latest --build-arg MLFLOW_VERSION=$RELEASE_VERSION  --load ./standard
 
-      - name: Publish Image (version)
+      - name: Build image (appengine)
+        run: |    
+          docker build --tag mlflow:latest-appengine --build-arg MLFLOW_VERSION=$RELEASE_VERSION --load ./appengine 
+
+      - name: Publish Image (version / standard)
         uses: mattes/gce-docker-push-action@v1
         with:
           creds: ${{ secrets.PUBLIC_GCR_DEPLOY_SA_KEY }}
           src: mlflow:latest
           dst: gcr.io/getindata-images-public/mlflow:${{ env.RELEASE_VERSION }}
 
-      - name: Publish Image (latest)
+      - name: Publish Image (version / appengine)
+        uses: mattes/gce-docker-push-action@v1
+        with:
+          creds: ${{ secrets.PUBLIC_GCR_DEPLOY_SA_KEY }}
+          src: mlflow:latest-appengine
+          dst: gcr.io/getindata-images-public/mlflow:${{ env.RELEASE_VERSION }}-appengine
+
+      - name: Publish Image (latest / standard)
         uses: mattes/gce-docker-push-action@v1
         with:
           creds: ${{ secrets.PUBLIC_GCR_DEPLOY_SA_KEY }}
           src: mlflow:latest
           dst: gcr.io/getindata-images-public/mlflow:latest
+
+      - name: Publish Image (latest / appengine)
+        uses: mattes/gce-docker-push-action@v1
+        with:
+          creds: ${{ secrets.PUBLIC_GCR_DEPLOY_SA_KEY }}
+          src: mlflow:latest
+          dst: gcr.io/getindata-images-public/mlflow:latest-appengine
