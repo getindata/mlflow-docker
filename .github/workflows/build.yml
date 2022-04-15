@@ -30,8 +30,10 @@ jobs:
         uses: Azure/container-scan@v0.1
         with:
           image-name: mlflow:current
+          severity-threshold: CRITICAL
 
       - name: Container image scan (appengine)
         uses: Azure/container-scan@v0.1
         with:
           image-name: mlflow:current-appengine
+          severity-threshold: CRITICAL
