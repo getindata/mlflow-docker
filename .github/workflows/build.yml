@@ -18,11 +18,22 @@ jobs:
         with:
           install: true
 
-      - name: Build
+      - name: Build (standard)
         run: |
-          docker build --tag mlflow:latest --load .
+          docker build --tag docker.io/library/mlflow:standard --load ./standard
 
-      - name: Container image scan
+      - name: Build (appengine)
+        run: |
+          docker build --build-arg BASE_IMAGE=docker.io/library/mlflow:standard --tag docker.io/library/mlflow:appengine --load ./appengine
+
+      - name: Container image scan (standard)
         uses: Azure/container-scan@v0.1
         with:
-          image-name: mlflow:latest
+          image-name: docker.io/library/mlflow:standard
+          severity-threshold: CRITICAL
+
+      - name: Container image scan (appengine)
+        uses: Azure/container-scan@v0.1
+        with:
+          image-name: docker.io/library/mlflow:appengine
+          severity-threshold: CRITICAL
