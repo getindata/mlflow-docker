@@ -26,32 +26,32 @@ jobs:
 
       - name: Build image (appengine)
         run: |    
-          docker build --tag mlflow:appengine --build-arg MLFLOW_VERSION=$RELEASE_VERSION --build-arg BASE_IMAGE=docker.io/library/mlflow:standard --load ./appengine 
+          docker build --tag docker.io/library/mlflow:appengine --build-arg MLFLOW_VERSION=$RELEASE_VERSION --build-arg BASE_IMAGE=docker.io/library/mlflow:standard --load ./appengine 
 
       - name: Publish Image (version / standard)
         uses: mattes/gce-docker-push-action@v1
         with:
           creds: ${{ secrets.PUBLIC_GCR_DEPLOY_SA_KEY }}
-          src: mlflow:standard
+          src: docker.io/library/mlflow:standard
           dst: gcr.io/getindata-images-public/mlflow:${{ env.RELEASE_VERSION }}
 
       - name: Publish Image (version / appengine)
         uses: mattes/gce-docker-push-action@v1
         with:
           creds: ${{ secrets.PUBLIC_GCR_DEPLOY_SA_KEY }}
-          src: mlflow:appengine
+          src: docker.io/library/mlflow:appengine
           dst: gcr.io/getindata-images-public/mlflow:${{ env.RELEASE_VERSION }}-appengine
 
       - name: Publish Image (latest / standard)
         uses: mattes/gce-docker-push-action@v1
         with:
           creds: ${{ secrets.PUBLIC_GCR_DEPLOY_SA_KEY }}
-          src: mlflow:standard
+          src: docker.io/library/mlflow:standard
           dst: gcr.io/getindata-images-public/mlflow:latest
 
       - name: Publish Image (latest / appengine)
         uses: mattes/gce-docker-push-action@v1
         with:
           creds: ${{ secrets.PUBLIC_GCR_DEPLOY_SA_KEY }}
-          src: mlflow:appengine
+          src: docker.io/library/mlflow:appengine
           dst: gcr.io/getindata-images-public/mlflow:latest-appengine

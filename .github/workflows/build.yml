@@ -20,20 +20,20 @@ jobs:
 
       - name: Build (standard)
         run: |
-          docker build --tag mlflow:standard --load ./standard
+          docker build --tag docker.io/library/mlflow:standard --load ./standard
 
       - name: Build (appengine)
         run: |
-          docker build --build-arg BASE_IMAGE=mlflow:standard --tag mlflow:current-appengine --load ./appengine
+          docker build --build-arg BASE_IMAGE=docker.io/library/mlflow:standard --tag docker.io/library/mlflow:appengine --load ./appengine
 
       - name: Container image scan (standard)
         uses: Azure/container-scan@v0.1
         with:
-          image-name: mlflow:standard
+          image-name: docker.io/library/mlflow:standard
           severity-threshold: CRITICAL
 
       - name: Container image scan (appengine)
         uses: Azure/container-scan@v0.1
         with:
-          image-name: mlflow:standard-appengine
+          image-name: docker.io/library/mlflow:appengine
           severity-threshold: CRITICAL
