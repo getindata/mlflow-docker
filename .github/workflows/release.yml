@@ -22,11 +22,11 @@ jobs:
 
       - name: Build image (standard)
         run: |
-          docker build --tag mlflow:standard --build-arg MLFLOW_VERSION=$RELEASE_VERSION  --load ./standard
+          docker build --tag docker.io/library/mlflow:standard --build-arg MLFLOW_VERSION=$RELEASE_VERSION  --load ./standard
 
       - name: Build image (appengine)
         run: |    
-          docker build --tag mlflow:appengine --build-arg MLFLOW_VERSION=$RELEASE_VERSION --build-arg BASE_IMAGE=mlflow:standard --load ./appengine 
+          docker build --tag mlflow:appengine --build-arg MLFLOW_VERSION=$RELEASE_VERSION --build-arg BASE_IMAGE=docker.io/library/mlflow:standard --load ./appengine 
 
       - name: Publish Image (version / standard)
         uses: mattes/gce-docker-push-action@v1
