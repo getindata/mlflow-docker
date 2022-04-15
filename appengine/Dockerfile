@@ -1,4 +1,4 @@
-FROM google/cloud-sdk:381.0.0
+FROM google/cloud-sdk:381.0.0-slim
 
 WORKDIR /mlflow/
 
