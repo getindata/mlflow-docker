@@ -8,6 +8,9 @@ on:
 jobs:
   docker:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target-cloud: ["gcp-aws", "azure"]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -29,9 +32,10 @@ jobs:
         with:
           creds: ${{ secrets.PUBLIC_GCR_DEPLOY_SA_KEY }}
           src: mlflow:latest
-          dst: gcr.io/getindata-images-public/mlflow:${{ env.RELEASE_VERSION }}
+          dst: gcr.io/getindata-images-public/mlflow:${{ matrix.target-cloud}}-${{ env.RELEASE_VERSION }}
 
       - name: Publish Image (latest)
+        if: ${{ matrix.target-cloud == "gcp-aws" }}
         uses: mattes/gce-docker-push-action@v1
         with:
           creds: ${{ secrets.PUBLIC_GCR_DEPLOY_SA_KEY }}
