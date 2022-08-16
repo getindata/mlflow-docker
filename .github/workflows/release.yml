@@ -25,7 +25,7 @@ jobs:
 
       - name: Build
         run: |
-          docker build --tag mlflow:latest --build-arg MLFLOW_VERSION=$RELEASE_VERSION  --load .
+          docker build --target ${{ matrix.target-cloud }} --tag mlflow:latest --build-arg MLFLOW_VERSION=$RELEASE_VERSION  --load .
 
       - name: Publish Image (version)
         uses: mattes/gce-docker-push-action@v1
@@ -35,7 +35,7 @@ jobs:
           dst: gcr.io/getindata-images-public/mlflow:${{ matrix.target-cloud}}-${{ env.RELEASE_VERSION }}
 
       - name: Publish Image (latest)
-        if: ${{ matrix.target-cloud == "gcp-aws" }}
+        if: matrix.target-cloud == 'gcp-aws'
         uses: mattes/gce-docker-push-action@v1
         with:
           creds: ${{ secrets.PUBLIC_GCR_DEPLOY_SA_KEY }}
