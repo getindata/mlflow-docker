@@ -28,6 +28,7 @@ jobs:
 
       - name: Container image scan
         uses: Azure/container-scan@v0.1
+        continue-on-error: true
         env:
           DOCKLE_HOST: "unix:///var/run/docker.sock" # https://github.com/aquasecurity/trivy/issues/2432#issuecomment-1172432975
         with:
