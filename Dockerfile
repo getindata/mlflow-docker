@@ -12,10 +12,14 @@ ENV LANG=C.UTF-8
 RUN echo "export LC_ALL=$LC_ALL" >> /etc/profile.d/locale.sh
 RUN echo "export LANG=$LANG" >> /etc/profile.d/locale.sh
 
-RUN apt-get update && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
+RUN echo "deb http://ftp.debian.org/debian experimental main contrib non-free" >> /etc/apt/sources.list && \
+    apt-get update && apt-get upgrade -y && apt-get install curl -y && \
+    apt upgrade -t experimental libc6 -y && \
+    curl -O "http://http.us.debian.org/debian/pool/main/p/pcre2/libpcre2-8-0_10.40-1_amd64.deb" && dpkg -i libpcre2-8-0_10.40-1_amd64.deb && \
+    rm -rf /var/lib/apt/lists/*
 
 FROM base as azure
-RUN apt-get update && apt-get install gnupg curl -y && \
+RUN apt-get update && apt-get install gnupg -y && \
     curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - && \
     curl https://packages.microsoft.com/config/debian/11/prod.list > /etc/apt/sources.list.d/mssql-release.list && \
     apt-get update && \
