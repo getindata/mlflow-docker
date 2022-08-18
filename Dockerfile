@@ -25,7 +25,7 @@ RUN apt-get update && apt-get install gnupg curl -y && \
 ENV PATH="${PATH}:/opt/mssql-tools18/bin"
 
 RUN pip install --no-cache-dir --ignore-installed azure-identity azure-storage-blob && \
-    pip install --no-cache-dir "pyodbc~=4.0.34" "mlflow==$MLFLOW_VERSION" pyarrow
+    pip install --no-cache-dir PyMySQL "pyodbc~=4.0.34" "mlflow==$MLFLOW_VERSION" pyarrow
 
 EXPOSE 8080
 
