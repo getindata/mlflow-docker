@@ -1,5 +1,4 @@
 #!/bin/bash
-mlflow db upgrade $BACKEND_STORE_URI
 exec mlflow server \
         --host 0.0.0.0 \
         --port 8080 \

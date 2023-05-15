@@ -1,6 +1,6 @@
 FROM python:3.10-slim-bullseye as base
 
-ARG MLFLOW_VERSION="1.*"
+ARG MLFLOW_VERSION="2.*"
 
 RUN mkdir /mlflow
 
